@@ -1,0 +1,361 @@
+
+    <!DOCTYPE html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title></title>
+        <style>
+            body {
+                font-size: 14px;
+                font-family: 'Avenir Next', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+                margin: 20px auto;
+                width: 1200px;
+            }
+
+            b {
+                font-weight: 600;
+            }
+
+            table {
+                width: 100%;
+                table-layout: fixed;
+            }
+
+            .ghost {
+                padding: 10px;
+                height: 150px;
+                width: 150px;
+                background-color: #FFFE00;
+                display: block;
+                margin: auto;
+                border-radius: 10px;
+            }
+
+            .leftpanel {
+                height: 100vh;
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                width: 300px;
+                color: #6c6c6c;
+                overflow-y: auto;
+            }
+
+            .leftpanel a {
+                text-decoration: none;
+                color: #6c6c6c;
+            }
+
+            .leftpanel ul {
+                margin-left: 20px;
+                padding: 0;
+            }
+
+            .leftpanel li {
+                cursor: pointer;
+                display: block;
+                padding: 11px 16px;
+            }
+
+            .leftpanel li:hover {
+                background-color: #f3f3f3;
+            }
+
+            .leftpanel li.active {
+                background-color: #f3f3f3;
+            }
+
+            .rightpanel th {
+                text-align: left
+            }
+
+            .rightpanel {
+                padding-left: 310px;
+                padding-top: 5px;
+            }
+
+            .rightpanel th, td {
+                padding: 15px;
+                font-weight: normal;
+            }
+            .hidden-div {
+                display: none;
+            }
+
+            .bold-headers th {
+                font-weight: 600;
+            }
+            .single_chat {
+                display: flex;
+                justify-content: space-between;
+                padding: 14px 28px;
+                border: none;
+                background-color: #FFFFFF;
+                cursor: pointer;
+                width: 100%;
+
+            }
+            .thread-list {
+                border-bottom: 0.5px solid;
+            }
+
+            .single_chat:hover {
+                background-color: #e3e3e3;
+            }
+            .thread-list:last-child{
+                border: none;
+            }
+            .icons {
+                left: 50%;
+                transform: translate(120px, 0%);
+                position: absolute;
+                padding-top: 15px;
+            }
+            .back-button {
+                min-height:30px;
+                min-width: 120px;
+                border:none;
+                padding-top: 20px;
+                cursor: pointer;
+            }
+
+            .saved {
+                background: #FFFC00;
+                border-radius: 100px;
+                width: 66px;
+                height:28px;
+                border: none;
+                justify-content: center;
+                align-items: center;
+                font-family: 'Avenir Next';
+                font-style: normal;
+                font-weight: 600;
+                font-size: 12px;
+                color: #845D00;
+                margin-top: 14px;
+                margin-right: 5px;
+                margin-bottom: 17px;
+            }
+        </style>
+    </head>
+    <html>
+    <body>
+    <div class="leftpanel"><img class="ghost" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MDAgNTAwIj48ZGVmcz48c3R5bGU+LmNscy0xe2ZpbGw6I2ZmZjt9PC9zdHlsZT48L2RlZnM+PHRpdGxlPjFBcnRib2FyZCAxIGNvcHkgMjwvdGl0bGU+PGcgaWQ9IlBSSU1BUllfLV9HSE9TVCIgZGF0YS1uYW1lPSJQUklNQVJZIC0gR0hPU1QiPjxwYXRoIGNsYXNzPSJjbHMtMSIgZD0iTTQxNy45MywzNDAuNzFjLTYwLjYxLTI5LjM0LTcwLjI3LTc0LjY0LTcwLjctNzgtLjUyLTQuMDctMS4xMS03LjI3LDMuMzgtMTEuNDEsNC4zMy00LDIzLjU0LTE1Ljg5LDI4Ljg3LTE5LjYxLDguODEtNi4xNiwxMi42OS0xMi4zMSw5LjgzLTE5Ljg3LTItNS4yMy02Ljg3LTcuMi0xMi03LjJhMjIuMywyMi4zLDAsMCwwLTQuODEuNTRjLTkuNjgsMi4xLTE5LjA4LDYuOTUtMjQuNTIsOC4yNmE4LjU2LDguNTYsMCwwLDEtMiwuMjdjLTIuOSwwLTQtMS4yOS0zLjcyLTQuNzguNjgtMTAuNTgsMi4xMi0zMS4yMy40NS01MC41Mi0yLjI5LTI2LjU0LTEwLjg1LTM5LjY5LTIxLTUxLjMyQzMxNi44LDEwMS40MywyOTQsNzcuMiwyNTAsNzcuMlMxODMuMjMsMTAxLjQzLDE3OC4zNSwxMDdjLTEwLjE4LDExLjYzLTE4LjczLDI0Ljc4LTIxLDUxLjMyLTEuNjcsMTkuMjktLjE3LDM5LjkzLjQ1LDUwLjUyLjIsMy4zMi0uODIsNC43OC0zLjcyLDQuNzhhOC42NCw4LjY0LDAsMCwxLTItLjI3Yy01LjQzLTEuMzEtMTQuODMtNi4xNi0yNC41MS04LjI2YTIyLjMsMjIuMywwLDAsMC00LjgxLS41NGMtNS4xNSwwLTEwLDItMTIsNy4yLTIuODYsNy41NiwxLDEzLjcxLDkuODQsMTkuODcsNS4zMywzLjcyLDI0LjU0LDE1LjYsMjguODcsMTkuNjEsNC40OCw0LjE0LDMuOSw3LjM0LDMuMzgsMTEuNDEtLjQzLDMuNDEtMTAuMSw0OC43MS03MC43LDc4LTMuNTUsMS43Mi05LjU5LDUuMzYsMS4wNiwxMS4yNCwxNi43Miw5LjI0LDI3Ljg1LDguMjUsMzYuNSwxMy44Miw3LjM0LDQuNzMsMywxNC45Myw4LjM0LDE4LjYxLDYuNTYsNC41MywyNS45NS0uMzIsNTEsNy45NSwyMSw2LjkyLDMzLjc2LDI2LjQ3LDcxLDI2LjQ3czUwLjM3LTE5LjY0LDcxLTI2LjQ3YzI1LTguMjcsNDQuNDMtMy40Miw1MS03Ljk1LDUuMzMtMy42OCwxLTEzLjg4LDguMzQtMTguNjEsOC42NS01LjU3LDE5Ljc3LTQuNTgsMzYuNS0xMy44MkM0MjcuNTIsMzQ2LjA3LDQyMS40OCwzNDIuNDMsNDE3LjkzLDM0MC43MVoiLz48cGF0aCBkPSJNNDQ0LjMsMzM3LjI2Yy0yLjcyLTcuNC03LjktMTEuMzYtMTMuOC0xNC42NC0xLjExLS42NS0yLjEzLTEuMTctMy0xLjU3LTEuNzYtLjkxLTMuNTYtMS43OS01LjM1LTIuNzItMTguMzktOS43NS0zMi43NS0yMi4wNS00Mi43MS0zNi42M2E4My4wNiw4My4wNiwwLDAsMS03LjMzLTEzYy0uODUtMi40My0uODEtMy44MS0uMi01LjA3YTguMjUsOC4yNSwwLDAsMSwyLjM1LTIuNDVjMy4xNi0yLjA5LDYuNDItNC4yMSw4LjYzLTUuNjQsMy45NC0yLjU1LDcuMDYtNC41Nyw5LjA3LTYsNy41NS01LjI4LDEyLjgzLTEwLjg5LDE2LjEzLTE3LjE2QTM0LjE3LDM0LjE3LDAsMCwwLDQwOS43OCwyMDRjLTUtMTMuMTYtMTcuNDMtMjEuMzMtMzIuNDktMjEuMzNhNDQuNzUsNDQuNzUsMCwwLDAtOS40NSwxYy0uODMuMTgtMS42Ni4zNy0yLjQ3LjU4LjE0LTktLjA2LTE4LjUtLjg2LTI3Ljg1LTIuODQtMzIuODctMTQuMzUtNTAuMS0yNi4zNS02My44NEExMDUsMTA1LDAsMCwwLDMxMS4zNyw3MUMyOTMuMTYsNjAuNiwyNzIuNTEsNTUuMzIsMjUwLDU1LjMyUzIwNi45NCw2MC42LDE4OC43MSw3MWExMDQuNjIsMTA0LjYyLDAsMCwwLTI2Ljg0LDIxLjZjLTEyLDEzLjc0LTIzLjUxLDMxLTI2LjM1LDYzLjg0LS44LDkuMzUtMSwxOC45LS44NywyNy44NS0uODEtLjIxLTEuNjMtLjQtMi40Ni0uNThhNDQuNzUsNDQuNzUsMCwwLDAtOS40NS0xYy0xNS4wNywwLTI3LjUyLDguMTctMzIuNSwyMS4zM2EzNC4yMSwzNC4yMSwwLDAsMCwxLjY1LDI4LjQxYzMuMzEsNi4yNyw4LjU5LDExLjg4LDE2LjE0LDE3LjE2LDIsMS40LDUuMTMsMy40Miw5LjA3LDYsMi4xMywxLjM4LDUuMjQsMy40LDguMjksNS40MmE4LjksOC45LDAsMCwxLDIuNjYsMi42N2MuNjQsMS4zMS42NiwyLjcyLS4yOSw1LjMyYTgyLjI5LDgyLjI5LDAsMCwxLTcuMjEsMTIuNzNjLTkuNzQsMTQuMjUtMjMuNjgsMjYuMzMtNDEuNDgsMzYtOS40Myw1LTE5LjIzLDguMzQtMjMuMzcsMTkuNTktMy4xMiw4LjQ5LTEuMDgsMTguMTUsNi44NSwyNi4yOWgwYTM5LjYzLDM5LjYzLDAsMCwwLDEwLDcuNTcsMTA4LjM1LDEwOC4zNSwwLDAsMCwyNC40Nyw5Ljc5LDE2LjE2LDE2LjE2LDAsMCwxLDQuOTQsMi4yMWMyLjg5LDIuNTMsMi40OCw2LjM0LDYuMzMsMTEuOTJhMjcuOCwyNy44LDAsMCwwLDcuMjQsNy4zNmM4LjA4LDUuNTgsMTcuMTYsNS45MywyNi43OCw2LjMsOC42OS4zMywxOC41NC43MSwyOS43OSw0LjQyLDQuNjYsMS41NCw5LjUsNC41MiwxNS4xMSw4LDEzLjQ3LDguMjgsMzEuOTEsMTkuNjEsNjIuNzcsMTkuNjFzNDkuNDMtMTEuMzksNjMtMTkuN2M1LjU3LTMuNDIsMTAuMzgtNi4zNywxNC45MS03Ljg3LDExLjI1LTMuNzIsMjEuMS00LjA5LDI5Ljc5LTQuNDIsOS42Mi0uMzcsMTguNy0uNzIsMjYuNzgtNi4zYTI3Ljg5LDI3Ljg5LDAsMCwwLDguMjQtOWMyLjc3LTQuNzEsMi43LTgsNS4zLTEwLjNhMTUuMzIsMTUuMzIsMCwwLDEsNC42NC0yLjEyLDEwOC43NiwxMDguNzYsMCwwLDAsMjQuOC05Ljg4QTM5LDM5LDAsMCwwLDQzNy45NCwzNjNsLjEtLjEyQzQ0NS40OCwzNTQuOTIsNDQ3LjM1LDM0NS41NCw0NDQuMywzMzcuMjZaTTQxNi44NywzNTJjLTE2LjczLDkuMjQtMjcuODUsOC4yNS0zNi41LDEzLjgyLTcuMzUsNC43My0zLDE0LjkzLTguMzQsMTguNjEtNi41Niw0LjUzLTI1Ljk1LS4zMi01MSw3Ljk1LTIwLjY2LDYuODMtMzMuODQsMjYuNDctNzEsMjYuNDdTMjAwLDM5OS4yNSwxNzksMzkyLjMzYy0yNS04LjI3LTQ0LjQzLTMuNDItNTEtNy45NS01LjMzLTMuNjgtMS0xMy44OC04LjM0LTE4LjYxQzExMSwzNjAuMiw5OS44OCwzNjEuMTksODMuMTYsMzUyYy0xMC42NS01Ljg4LTQuNjEtOS41Mi0xLjA2LTExLjI0LDYwLjYtMjkuMzQsNzAuMjctNzQuNjQsNzAuNy03OCwuNTItNC4wNywxLjEtNy4yNy0zLjM4LTExLjQxLTQuMzMtNC0yMy41NC0xNS44OS0yOC44Ny0xOS42MS04LjgyLTYuMTYtMTIuNy0xMi4zMS05Ljg0LTE5Ljg3LDItNS4yMyw2Ljg4LTcuMiwxMi03LjJhMjIuMywyMi4zLDAsMCwxLDQuODEuNTRjOS42OCwyLjEsMTkuMDgsNi45NSwyNC41MSw4LjI2YTguNjQsOC42NCwwLDAsMCwyLC4yN2MyLjksMCwzLjkyLTEuNDYsMy43Mi00Ljc4LS42Mi0xMC41OS0yLjEyLTMxLjIzLS40NS01MC41MiwyLjI5LTI2LjU0LDEwLjg0LTM5LjY5LDIxLTUxLjMyLDQuODgtNS41OSwyNy44MS0yOS44Miw3MS42Ni0yOS44MlMzMTYuOCwxMDEuNDMsMzIxLjY4LDEwN2MxMC4xNywxMS42MywxOC43MywyNC43OCwyMSw1MS4zMiwxLjY3LDE5LjI5LjIzLDM5Ljk0LS40NSw1MC41Mi0uMjMsMy40OS44Miw0Ljc4LDMuNzIsNC43OGE4LjU2LDguNTYsMCwwLDAsMi0uMjdjNS40NC0xLjMxLDE0Ljg0LTYuMTYsMjQuNTItOC4yNmEyMi4zLDIyLjMsMCwwLDEsNC44MS0uNTRjNS4xNSwwLDEwLDIsMTIsNy4yLDIuODYsNy41Ni0xLDEzLjcxLTkuODMsMTkuODctNS4zMywzLjcyLTI0LjU0LDE1LjYtMjguODcsMTkuNjEtNC40OSw0LjE0LTMuOSw3LjM0LTMuMzgsMTEuNDEuNDMsMy40MSwxMC4wOSw0OC43MSw3MC43LDc4QzQyMS40OCwzNDIuNDMsNDI3LjUyLDM0Ni4wNyw0MTYuODcsMzUyWiIvPjwvZz48L3N2Zz4="><ul><li><a href="faq.html">Frequently Asked Questions</a></li><li><a href="account.html">Login History and Account Information</a></li><li><a href="snapchat_ai.html">My AI</a></li><li><a href="user_profile.html">User Profile</a></li><li><a href="friends.html">Friends</a></li><li><a href="ranking.html">Statistics &amp; Ranking</a></li><li><a href="story_history.html">Story History</a></li><li><a href="account_history.html">Account History</a></li><li><a href="location_history.html">Location</a></li><li><a href="terms_history.html">Terms History</a></li><li><a href="in_app_surveys.html">In-app Surveys</a></li><li><a href="memories_history.html">Memories</a></li></ul></div><div class="rightpanel"><h1>Memories</h1><p><p><b>Note</b>: This section includes information about Memories you've saved in Snapchat. Download links below will expire 7 days from when your data file was made available to you. The Location column refers to your location when you saved a particular Memory. Similarly, the Date column shows the day and time a Memory was saved by you.</p><p>To ensure the fastest and most reliable download of your Memories, please connect to a stable Wi-Fi network. Downloads over a cellular connection may be significantly slower or interrupted. Additionally, it's crucial to keep this page open and your device unlocked until the download is complete. Closing this screen may pause the download, forcing it to resume later and delaying the process.</p></p><p class="important"></p>
+    <script>
+        // ==================== CONSTANTS ====================
+        var STORAGE_KEY = 'memories_downloaded_files';
+
+        // ==================== LOCAL STORAGE FUNCTIONS ====================
+        function getDownloadedFiles() {
+            try {
+                var downloaded = localStorage.getItem(STORAGE_KEY);
+                return downloaded ? JSON.parse(downloaded) : {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function extractStorageKey(url) {
+            // For proxy URLs, extract sid parameter to save storage space
+            if (url.includes('proxy=true')) {
+                try {
+                    var urlObj = new URL(url);
+                    var sid = urlObj.searchParams.get('sid');
+                    return sid ? 'sid_' + sid : url; // Fallback to full URL if sid not found
+                } catch (e) {
+                    return url; // Fallback to full URL if URL parsing fails
+                }
+            }
+            // For non-proxy URLs, use the full URL
+            return url;
+        }
+
+        function markFileAsDownloaded(url) {
+            try {
+                var downloaded = getDownloadedFiles();
+                var key = extractStorageKey(url);
+                downloaded[key] = {
+                    timestamp: new Date().toISOString(),
+                    downloaded: true,
+                    originalUrl: url.includes('proxy=true') ? undefined : url // Only store original URL for non-proxy
+                };
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(downloaded));
+            } catch (e) {
+                console.error('Error saving to localStorage:', e);
+            }
+        }
+
+        function isFileDownloaded(url) {
+            var downloaded = getDownloadedFiles();
+            var key = extractStorageKey(url);
+            return downloaded[key] && downloaded[key].downloaded;
+        }
+
+        // ==================== HELPER FUNCTIONS ====================
+        function getAllDownloadLinks() {
+            // Find all download links in the memories table - look for both "Download" and "Downloaded" text
+            var allLinks = document.querySelectorAll('table a');
+            var downloadLinks = [];
+
+            for (var i = 0; i < allLinks.length; i++) {
+                var link = allLinks[i];
+                var text = link.innerText || link.textContent || '';
+                var normalizedText = text.toLowerCase().trim();
+
+                // Include links with "Download" text OR "Downloaded" text (for already completed ones)
+                if (normalizedText === 'download' || normalizedText.startsWith('downloaded')) {
+                    downloadLinks.push(link);
+                }
+            }
+
+            return downloadLinks;
+        }
+
+        function parseDownloadLink(link) {
+            var onclickAttr = link.getAttribute('onclick');
+
+            // All links now use onclick handler with downloadMemories
+            if (onclickAttr) {
+                var matches = onclickAttr.match(/downloadMemories\('(.+?)',\s*this,\s*(true|false)\)/);
+                if (matches) {
+                    var isGetRequest = matches[2] === 'true';
+                    return {
+                        url: matches[1],
+                        isGetRequest: isGetRequest
+                    };
+                }
+            }
+
+            return null;
+        }
+
+        function updateLinkAsDownloaded(linkElement) {
+            linkElement.innerText = "Downloaded ✓";
+            linkElement.style.color = "#4CAF50";
+            linkElement.style.textDecoration = "none";
+            linkElement.style.pointerEvents = "auto";
+        }
+
+        // ==================== UI UPDATE FUNCTIONS ====================
+        function initializeDownloadStatus() {
+            var downloadLinks = getAllDownloadLinks();
+
+            downloadLinks.forEach(function(link) {
+                var parsed = parseDownloadLink(link);
+                if (parsed && isFileDownloaded(parsed.url)) {
+                    updateLinkAsDownloaded(link);
+                }
+            });
+        }
+
+        // ==================== DOWNLOAD FUNCTIONS ====================
+        function triggerFileDownload(url) {
+            var anchor = document.createElement("a");
+            anchor.href = url;
+            anchor.download = "";
+            anchor.style.display = "none";
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+        }
+
+        function downloadMemories(url, linkElement, isGetRequest) {
+            var originalText = linkElement.innerText;
+            linkElement.innerText = "Downloading...";
+            linkElement.style.pointerEvents = "none";
+
+            if (isGetRequest) {
+                // Must use XMLHttpRequest to send custom headers
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("GET", url, true);
+                xhttp.setRequestHeader("X-Snap-Route-Tag", "mem-dmd");
+                xhttp.responseType = 'blob';
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState !== 4) return;
+
+                    if (xhttp.status === 200) {
+                        // Create blob URL and trigger download
+                        var blob = xhttp.response;
+                        var blobUrl = window.URL.createObjectURL(blob);
+                        triggerFileDownload(blobUrl);
+                        window.URL.revokeObjectURL(blobUrl); // Clean up
+
+                        updateLinkAsDownloaded(linkElement);
+                        markFileAsDownloaded(url);
+                        document.getElementById("mem-info-bar").innerText = "";
+                    } else if (xhttp.status >= 400) {
+                        document.getElementById("mem-info-bar").innerText = "Download failed.";
+                        linkElement.innerText = originalText;
+                        linkElement.style.pointerEvents = "auto";
+                    }
+                };
+                xhttp.send();
+            } else {
+                // For POST requests (proxy downloads)
+                var parts = url.split("?");
+                var xhttp = new XMLHttpRequest();
+                xhttp.open("POST", parts[0], true);
+                xhttp.onreadystatechange = function () {
+                    if (xhttp.readyState !== 4) return;
+
+                    if (xhttp.status === 200) {
+                        triggerFileDownload(xhttp.responseText);
+                        updateLinkAsDownloaded(linkElement);
+                        markFileAsDownloaded(url);
+                        document.getElementById("mem-info-bar").innerText = "";
+                    } else if (xhttp.status >= 400) {
+                        document.getElementById("mem-info-bar").innerText = "Download failed.";
+                        linkElement.innerText = originalText;
+                        linkElement.style.pointerEvents = "auto";
+                    }
+                };
+                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                xhttp.send(parts[1]);
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeDownloadStatus);
+        } else {
+            initializeDownloadStatus();
+        }
+    </script>
+    <div id='mem-info-bar' style='color:red'></div><table><tbody><tr><th style="white-space: nowrap; overflow: hidden;"><b>Date</b></th><th style="white-space: nowrap; overflow: hidden;"><b>Media Type</b></th><th style="white-space: nowrap; overflow: hidden;"><b>Location</b></th><th style="white-space: nowrap; overflow: hidden;"><b></b></th></tr><tr><td>2026-10-02 11:29:40 UTC</td><td>Video</td><td>Latitude, Longitude: 22.263931, 89.27168</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:29:03 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263985, 89.27169</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:28:41 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263992, 89.27171</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:28:24 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263956, 89.271736</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:28:08 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263956, 89.271736</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:28:00 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263956, 89.271736</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:27:45 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263927, 89.27174</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:27:14 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264294, 89.27151</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:27:00 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264294, 89.27151</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 11:26:32 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263985, 89.27169</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 06:01:39 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264303, 89.27455</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 06:01:13 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26452, 89.27459</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 06:00:21 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264345, 89.27461</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 05:50:45 UTC</td><td>Image</td><td>Latitude, Longitude: 22.2641, 89.27457</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 05:49:56 UTC</td><td>Image</td><td>Latitude, Longitude: 22.2641, 89.27457</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 05:33:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.263966, 89.27428</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-02 05:33:02 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26425, 89.27446</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-01 13:48:08 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26429, 89.27444</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-10-01 13:47:47 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264217, 89.274445</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-25 07:29:07 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264305, 89.27441</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-25 07:28:50 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264305, 89.27441</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-25 07:28:37 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264303, 89.274414</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:55:07 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:54:55 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:54:29 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:53:48 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:53:35 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:53:07 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:52:27 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:52:11 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:49:11 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:48:58 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:44:21 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:44:09 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:43:57 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-12 04:43:22 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-10 12:01:16 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-06 11:45:01 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-03 13:57:41 UTC</td><td>Video</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-03 13:53:55 UTC</td><td>Video</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-09-03 13:51:22 UTC</td><td>Video</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-30 02:50:49 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-30 01:18:04 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-30 01:16:30 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-27 12:28:32 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-27 12:28:32 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-27 12:28:00 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:18:31 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:18:31 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:18:20 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:17:58 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:16:05 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:15:10 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:14:08 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:12:35 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:11:54 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:11:39 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-26 12:11:23 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:53:54 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:53:54 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:53:21 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:52:49 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:52:36 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:52:21 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:51:31 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:51:09 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-19 11:50:42 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-18 02:16:05 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264458, 89.274025</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-06 13:13:06 UTC</td><td>Video</td><td>Latitude, Longitude: 22.303047, 89.26914</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-06 13:13:06 UTC</td><td>Video</td><td>Latitude, Longitude: 22.303047, 89.26914</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-06 13:12:37 UTC</td><td>Video</td><td>Latitude, Longitude: 22.303028, 89.2691</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-06 10:32:41 UTC</td><td>Video</td><td>Latitude, Longitude: 22.303005, 89.26908</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-08-06 09:12:36 UTC</td><td>Image</td><td>Latitude, Longitude: 22.303062, 89.26902</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-31 08:20:56 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264181, 89.274666</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-31 08:20:56 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264425, 89.27469</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-21 14:03:38 UTC</td><td>Video</td><td>Latitude, Longitude: 22.264395, 89.27404</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-21 14:00:49 UTC</td><td>Video</td><td>Latitude, Longitude: 22.26438, 89.274635</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-10 11:57:29 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264355, 89.274315</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-10 11:55:58 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264284, 89.27474</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-10 11:55:58 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264372, 89.27473</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 03:00:03 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.27428</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:58:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.27428</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:43:13 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264372, 89.2743</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:43:13 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264347, 89.27431</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:43:13 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264372, 89.2743</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:43:03 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264372, 89.2743</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:42:45 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264372, 89.2743</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:41:48 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264381, 89.274284</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-05 02:41:01 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264378, 89.274284</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-02 03:59:45 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26437, 89.27432</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-02 03:59:00 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264374, 89.27432</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-02 03:58:30 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264364, 89.27432</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-02 03:58:16 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264343, 89.27434</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-02 03:57:50 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264343, 89.27434</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-07-02 03:57:26 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264378, 89.27432</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:30:21 UTC</td><td>Video</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:29:27 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:29:20 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:29:11 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:29:05 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:28:52 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:28:09 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:27:33 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:26:46 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-21 13:26:13 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-12 14:39:47 UTC</td><td>Video</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-06-06 12:46:38 UTC</td><td>Image</td><td>Latitude, Longitude: 0.0, 0.0</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-28 02:59:43 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26437, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:31:46 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264366, 89.27434</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:30:29 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26437, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:30:10 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26427, 89.274734</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:29:54 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26427, 89.274734</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:29:35 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264526, 89.27455</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:29:17 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26437, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:28:49 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26437, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:28:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264366, 89.27434</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:27:55 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264372, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 08:27:26 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26437, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-23 05:35:24 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264418, 89.27476</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-22 06:39:40 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264383, 89.2747</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-22 06:39:40 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264383, 89.2747</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-20 12:26:54 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26461, 89.27456</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-20 12:24:44 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26455, 89.27475</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-20 12:24:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26455, 89.27475</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-20 12:24:09 UTC</td><td>Image</td><td>Latitude, Longitude: 22.265615, 89.27392</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-20 12:24:01 UTC</td><td>Image</td><td>Latitude, Longitude: 22.265615, 89.27392</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-20 12:23:37 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26759, 89.277</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:11:34 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264456, 89.27464</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:06:57 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:06:38 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:06:11 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:05:31 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:04:02 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:02:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264374, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:02:09 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264374, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 10:01:15 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264374, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:58:55 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264374, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:58:27 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264374, 89.27435</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:57:58 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:57:30 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:56:07 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:55:33 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:55:06 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:54:45 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:54:33 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:54:15 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:53:55 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:53:24 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264368, 89.274345</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:51:50 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264082, 89.274506</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:50:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264353, 89.27436</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:50:25 UTC</td><td>Image</td><td>Latitude, Longitude: 22.264353, 89.27436</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:49:18 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26436, 89.27436</td><td><span style="color: #999;">N/A</span></td></tr><tr><td>2026-05-19 09:48:21 UTC</td><td>Image</td><td>Latitude, Longitude: 22.26436, 89.27436</td><td><span style="color: #999;">N/A</span></td></tr></tbody></table></div></body>
+    <script>
+
+        const navigationItems = document.querySelectorAll('.leftpanel li');
+        navigationItems.forEach(item => {
+            const link = item.querySelector('a');
+            const linkHref = link.getAttribute('href');
+            const currentUrl = window.location.pathname;
+
+            if (currentUrl.endsWith(linkHref)) {
+                item.classList.add('active'); // Add 'active' class to the <li> element
+            }
+
+            item.addEventListener('click', function(event) {
+                event.preventDefault();
+                if(currentUrl.includes("subpage")){
+                    const newHref = "../"+linkHref;
+                     // Navigate to the new HTML page from one of the chat/snap subpages
+                    window.location.href = newHref;
+                }else{
+                    // Navigate to the new HTML page
+                    window.location.href = linkHref;
+                }
+            });
+        });
+
+
+
+        // Scroll to the active navigation item on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            const activeLink = document.querySelector('.leftpanel li.active');
+            if (activeLink) {
+                const linkRect = activeLink.getBoundingClientRect();
+                if (linkRect.top < 0 || linkRect.bottom > window.innerHeight) {
+                    activeLink.scrollIntoView({ behavior: 'auto' });
+                }
+            }
+        });
+    </script></html>

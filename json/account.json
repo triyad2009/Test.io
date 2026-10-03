@@ -1,0 +1,52 @@
+{
+  "Basic Information": {
+    "Username": "nahidakorobi",
+    "Name": "Nahida Korobi",
+    "Creation Date": "2026-05-19 09:46:17 UTC",
+    "Registration IP": "103.161.68.169",
+    "Country": "BD",
+    "Last Active": "10/2/2026 08:29:48 AM PDT"
+  },
+  "Device Information": {
+    "Make": "Honor",
+    "Model ID": "NIC-LX2",
+    "Model Name": "HONOR X6c",
+    "Language": "en",
+    "OS Type": "ANDROID",
+    "OS Version": "Android 15",
+    "Connection Type": "WIFI, CELL"
+  },
+  "Device History": [
+    {
+      "Make": "Honor",
+      "Model": "NIC-LX2",
+      "Start Time": "2026-05-19 09:00:00 UTC",
+      "Device Type": "PHONE"
+    },
+    {
+      "Make": "Tecno",
+      "Model": "TECNO KL4",
+      "Start Time": "2026-09-27 16:00:00 UTC",
+      "Device Type": "PHONE"
+    }
+  ],
+  "Privacy Policy and Terms of Service Acceptance History": [],
+  "Custom Creative Tools Terms": [],
+  "Login History": [
+    {
+      "IP": "27.147.190.162",
+      "Country": "BD",
+      "Created": "2026-09-27 16:12:13 UTC",
+      "Status": "success",
+      "Device": "Snapchat/14.25.0.43 (TECNO KL4; Android 14#260630V4471#34; gzip) V/MUSHROOM grpc-c++/1.48.0 grpc-c/26.0.0 (android; cronet_http)"
+    },
+    {
+      "IP": "103.161.68.169",
+      "Country": "BD",
+      "Created": "2026-05-19 09:46:17 UTC",
+      "Status": "success",
+      "Device": "Snapchat/13.92.0.53 (NIC-LX2; Android 15#9.0.0.210C636E2R104P1#35; gzip) V/MUSHROOM grpc-c++/1.48.0 grpc-c/26.0.0 (android; cronet_http)"
+    }
+  ],
+  "Family Center": []
+}

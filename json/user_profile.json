@@ -1,0 +1,219 @@
+{
+  "App Profile": {
+    "Country": "BD",
+    "Creation Time": "2026-05-19 09:46:17 UTC",
+    "Account Creation Country": "",
+    "Platform Version": "",
+    "In-app Language": ""
+  },
+  "Demographics": {
+    "Cohort Age": "AGE_25_TO_34",
+    "Derived Ad Demographic": "FEMALE"
+  },
+  "Subscriptions": [],
+  "Engagement": [
+    {
+      "Event": "Application Opens",
+      "Occurrences": 63
+    },
+    {
+      "Event": "Snaps Posted to Story",
+      "Occurrences": 4
+    },
+    {
+      "Event": "Direct Snaps Created",
+      "Occurrences": 44
+    },
+    {
+      "Event": "Story Views",
+      "Occurrences": 90
+    },
+    {
+      "Event": "Snaps Viewed in a Story",
+      "Occurrences": 90
+    },
+    {
+      "Event": "Discover Editions Viewed",
+      "Occurrences": 1
+    },
+    {
+      "Event": "Discover Snap Views",
+      "Occurrences": 3
+    },
+    {
+      "Event": "Geofilter Story Snaps Viewed",
+      "Occurrences": 6
+    }
+  ],
+  "Discover Channels Viewed": [
+    {
+      "Channel Name": "ff643ad1-bd1a-4eb8-b284-f381e9e6f8e8"
+    }
+  ],
+  "Breakdown of Time Spent on App": [
+    "Camera: 51.19%",
+    "Discover: 0.27%",
+    "Map: 1.39%",
+    "Memories: 10.71%",
+    "Messaging: 2.04%",
+    "Others: 33.83%",
+    "Profile: 0.57%"
+  ],
+  "Ads You Interacted With": [],
+  "Interest Categories": [],
+  "Content Categories": [
+    "Comedy",
+    "Relationships",
+    "Comedy/Sketch Comedy",
+    "Film & TV Fandom/Cartoons & Anime Fandom",
+    "Comedy/Pranks"
+  ],
+  "Geographic Information": [],
+  "Interactions": {
+    "Web Interactions": [
+      "tiffany.com",
+      "tapmad.com",
+      "gulfcoastjam.com"
+    ],
+    "App Interactions": [
+      "https://play.google.com/store/apps/details?id=com.agoda.mobile.consumer",
+      "https://play.google.com/store/apps/details?id=com.facebook.katana",
+      "https://play.google.com/store/apps/details?id=com.dino.race.master"
+    ]
+  },
+  "Off-Platform Sharing": [
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-09-11 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-26 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-19 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-07 00:00:00 UTC",
+      "Media Type": "Video",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-08-07 00:00:00 UTC",
+      "Media Type": "Video",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-07-21 00:00:00 UTC",
+      "Media Type": "Video",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "WhatsApp",
+      "Date": "2026-07-04 00:00:00 UTC",
+      "Media Type": "Url",
+      "Shared URL": "https://share.snapchat.com/m/dlYXf-LQiyUq?share_id=-SjM4ebOQTQ&locale=en-BD"
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-21 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-12 00:00:00 UTC",
+      "Media Type": "Video",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-12 00:00:00 UTC",
+      "Media Type": "Video",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-06 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-06 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-06 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-06-06 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-05-22 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    },
+    {
+      "Share Destination": "Camera Roll",
+      "Date": "2026-05-22 00:00:00 UTC",
+      "Media Type": "Image",
+      "Shared URL": ""
+    }
+  ],
+  "Mobile Ad Id": "1f305b9d-f6df-44af-81a8-769e305ae342"
+}

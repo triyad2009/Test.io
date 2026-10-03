@@ -1,0 +1,40 @@
+{
+  "Friends": [
+    {
+      "Username": "myai",
+      "Display Name": "My AI",
+      "Creation Timestamp": "2026-05-19 09:46:17 UTC",
+      "Last Modified Timestamp": "2026-05-19 09:46:17 UTC",
+      "Source": "added by unknown"
+    },
+    {
+      "Username": "teamsnapchat",
+      "Display Name": "Team Snapchat",
+      "Creation Timestamp": "2026-05-19 09:46:19 UTC",
+      "Last Modified Timestamp": "2026-05-19 09:46:19 UTC",
+      "Source": "added by unknown"
+    },
+    {
+      "Username": "nahidakorobi",
+      "Display Name": "Nahida Korobi",
+      "Creation Timestamp": "2026-05-19 09:46:19 UTC",
+      "Last Modified Timestamp": "2026-05-19 09:46:19 UTC",
+      "Source": "added by unknown"
+    }
+  ],
+  "Friend Requests Sent": [],
+  "Blocked Users": [],
+  "Deleted Friends": [],
+  "Hidden Friend Suggestions": [],
+  "Ignored Snapchatters": [],
+  "Pending Requests": [
+    {
+      "Username": "rose22303257",
+      "Display Name": "Anower Sahadad",
+      "Creation Timestamp": "2026-06-26 16:49:37 UTC",
+      "Last Modified Timestamp": "2026-06-26 16:49:37 UTC",
+      "Source": "added by unknown"
+    }
+  ],
+  "Shortcuts": []
+}
